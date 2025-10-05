@@ -1,0 +1,9 @@
+.vercel
+.next
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+tsconfig.json
+src/components/ui
+src/gql/gql.ts
+src/gql/graphql.ts
