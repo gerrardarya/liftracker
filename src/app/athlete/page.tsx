@@ -14,6 +14,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Calendar, Plus, Search, TrendingUp } from "lucide-react";
+import ProgramList from "@/features/athlete/program/components/program-list";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function AthletePage() {
   const { user } = useAuth();
@@ -213,80 +215,7 @@ export default function AthletePage() {
           </TabsContent>
 
           <TabsContent value="my-programs" className="space-y-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-2xl font-semibold">My Programs</h3>
-                <p className="text-muted-foreground">
-                  Programs you've created for yourself
-                </p>
-              </div>
-              <Button asChild size="lg">
-                <Link href="/athlete/program/create">
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create Program
-                </Link>
-              </Button>
-            </div>
-
-            {athletePrograms.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {athletePrograms.map((program) => (
-                  <Card
-                    key={program.id}
-                    className="hover:shadow-lg transition-shadow"
-                  >
-                    <CardHeader>
-                      <CardTitle className="text-xl">{program.name}</CardTitle>
-                      <CardDescription>{program.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between text-sm text-muted-foreground">
-                          <span>{program.weeks.length} weeks</span>
-                          <span>
-                            {program.weeks.reduce(
-                              (total, week) => total + week.days.length,
-                              0,
-                            )}{" "}
-                            days
-                          </span>
-                        </div>
-
-                        <div className="flex gap-2">
-                          <Button asChild className="flex-1">
-                            <Link href={`/athlete/program/${program.id}`}>
-                              View
-                            </Link>
-                          </Button>
-                          <Button asChild variant="outline">
-                            <Link href={`/athlete/program/${program.id}/edit`}>
-                              Edit
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <h3 className="text-xl font-semibold mb-2">
-                    No programs yet
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Create your own custom training program
-                  </p>
-                  <Button asChild>
-                    <Link href="/athlete/program/create">
-                      <Plus className="mr-2 h-4 w-4" />
-                      Create Program
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+            <ProgramList />
           </TabsContent>
         </Tabs>
       </main>
